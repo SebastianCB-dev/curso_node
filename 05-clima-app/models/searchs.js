@@ -96,6 +96,7 @@ class Searchs {
         if( this.history.includes( place.toLocaleLowerCase() )) return;
         this.history.unshift( place.toLocaleLowerCase() );
 
+        if(this.history.length > 6 ) this.history.splice( 6, this.history.length);
         // Grabar en DB
         this.guardarDB();
     }   
