@@ -19,7 +19,17 @@ class Searchs {
         }
     }
     capitalizarHistorial() {
-        this.history.map( place => place.toUpperCase() );
+        
+        this.history = this.history.map( data => {
+            let array = data.split(' ');
+             array = array.map( word => `${ word.charAt(0).toUpperCase()}${word.slice(1,word.length)}` );
+             return array.join(' ');
+        }); 
+
+    }
+
+    descapitalizarHistorial() {
+        this.history = this.history.map( value => value.toLowerCase());
     }
     paramsOpenWeather(lat, lon, appid) {
         return {
@@ -91,17 +101,18 @@ class Searchs {
     }   
 
     guardarDB() {
+        this.descapitalizarHistorial();
         fs.writeFileSync(this.dbPath, JSON.stringify(this.history));
     }
 
     leerDB() {
         if( !fs.existsSync(this.dbPath)) return;
+        
         const info = fs.readFileSync(this.dbPath, {encoding: 'UTF-8'})
 
         const data = JSON.parse(info);
         this.history = data;
         this.capitalizarHistorial();
-        console.log(this.history);
     }
 }
 

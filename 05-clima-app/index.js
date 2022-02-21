@@ -37,6 +37,7 @@ const main = async() => {
             break;
             
             case 2:
+                searchs.capitalizarHistorial();
                 searchs.history.forEach( (place, index) => {
                     const idx = `${ index + 1}.`.green;
                     console.log(`${ idx } ${ place }`);
